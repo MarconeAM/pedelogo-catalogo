@@ -12,7 +12,7 @@ pipeline {
         stage('Docker Build Image') {
             steps {
                 script {
-                    dockerapp = docker.build("marcone29/api-produto:${env.BUILD_ID}",
+                    dockerapp = docker.build("marcone29/api-pedelogocatalogo:${env.BUILD_ID}",
                       '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                 }
             }
@@ -29,5 +29,21 @@ pipeline {
             }
         }
 
-      
+        stage('Deploy Kubernetes') {
+            agent {
+                kubernetes {
+                    cloud 'kubernetes'
+                }
+            }
+            environment {
+                tag_version = "${env.BUILD_ID}"
+            }
+
+            steps {
+                sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api.yaml'
+                sh 'cat ./k8s/api.yaml'
+                kubernetesDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')
+            }
+        }
+    }
 }

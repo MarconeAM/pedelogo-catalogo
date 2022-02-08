@@ -32,9 +32,11 @@ pipeline {
            stage('SonarQube analysis') {
                     steps {
 			    withSonarQubeEnv('sonarqube') {
-					                  run 'dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
-				                          run 'dotnet build PedeLogo.Catalogo.sln'
-                                                          run 'dotnet sonarscanner end /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
+					                  sh 'dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
+				                          sh 'dotnet build PedeLogo.Catalogo.sln'
+                                                          sh 'dotnet sonarscanner end /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
+				    
+				   
                        	
    		    }
 	       }

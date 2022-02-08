@@ -32,6 +32,7 @@ pipeline {
         
         stage('SonarQube analysis') {
                     steps {
+			     script {
 			withSonarQubeEnv('sonarqube') {
 
 				//sh 'mvn sonar:sonar -Dsonar.projectKey=projetojpedelogo-pipeline -Dsonar.host.url=http://localhost:9000 -Dsonar.login=871535c71e2ae3e4f066c020911f9c1b71a944fa'
@@ -39,7 +40,8 @@ pipeline {
                                   dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"
 				  dotnet build PedeLogo.Catalogo.sln
                                   dotnet sonarscanner end /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"
-			}
+			   }
+			     }
 		    }
 		}
 

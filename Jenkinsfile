@@ -31,34 +31,36 @@ pipeline {
        
         
         stage('SonarQube analysis') {
-
+                    steps {
 			withSonarQubeEnv('Sonarqube') {
 
 				sh 'mvn sonar:sonar -Dsonar.projectKey=projetojpedelogo-pipeline -Dsonar.host.url=http://localhost:9000 -Dsonar.login=871535c71e2ae3e4f066c020911f9c1b71a944fa'
 
 			}
-
+		    }
 		}
 
 		stage('Email Sucess')
 		{
-
+                         steps {
 			emailext (
 				to: 'mrcn.alvesmiranda@gmail.com',
 				subject: "Sucess Pipeline: ${currentBuild.fullDisplayName}",
 				body: "Sucess with ${env.BUILD_URL}"
-				)	 
+				)
+			 }
 
         }
         
         stage('Email Failed')
 		{
-
+                   steps {
 			emailext (
 				to: 'mrcn.alvesmiranda@gmail.com, marcone.alves@fsfx.com.br',
 				subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
 				body: "Something is wrong with ${env.BUILD_URL}"
 				)	 
+		   }
 		}
         
         stage('Deploy Kubernetes') {

@@ -29,27 +29,19 @@ pipeline {
             }
         }
        
-	     stage('Build + SonarQube analysis') {
-			    def sqScannerMsBuildHome = tool 'Scanner for MSBuild 4.6'
+	    
+          stage('SonarQube analysis') {
+                    steps {
 			    withSonarQubeEnv('sonarqube') {
-			      bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:projetojpedelogo-pipeline"
-			      bat 'MSBuild.exe /t:Rebuild'
-			      bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
-			    }
-	    
-	    
-         //  stage('SonarQube analysis') {
-        //            steps {
-	//		    withSonarQubeEnv('sonarqube') {
-	//				                  sh 'dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
-	//			                          sh 'dotnet build PedeLogo.Catalogo.sln'
-       //                                                   sh 'dotnet sonarscanner end /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
-       //			    
-       //			   
-       //                   	
-       //        }
-      //       }
-     //     }
+					                  bat 'dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
+				                          bat 'dotnet build PedeLogo.Catalogo.sln'
+                                                          bat 'dotnet sonarscanner end /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
+       			    
+       			   
+                          	
+                 }
+              }
+          }
 	    
 	    
 

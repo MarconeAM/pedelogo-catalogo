@@ -33,6 +33,8 @@ pipeline {
           stage('SonarQube analysis') {
                     steps {
 			    withSonarQubeEnv('sonarqube') {
+				                          bat 'dotnet tool install --global dotnet-sonarscanner --version 5.5.1'
+				    
 				                          bat 'dotnet tool install --global dotnet-sonarscanner'
 					                  bat 'dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="871535c71e2ae3e4f066c020911f9c1b71a944fa"'
 				                          bat 'dotnet build PedeLogo.Catalogo.sln'

@@ -35,7 +35,7 @@ pipeline {
 			    withSonarQubeEnv('sonarqube') {
 				                        //  bat 'dotnet tool install --global dotnet-sonarscanner --version 5.5.1'
 				                         //bat  dotnet tool install --global dotnet-sonarscanner
-					                 bat 'dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="555fb13f8d7dedfbfcb19fad7d76f38c58f8d4fa"'
+					                 bat 'dotnet sonarscanner begin /k:"projetojpedelogo-pipeline" /d:sonar.host.url="http://127.0.0.1:9000"  /d:sonar.login="555fb13f8d7dedfbfcb19fad7d76f38c58f8d4fa"'
 				                         bat 'dotnet build PedeLogo.Catalogo.sln'
                                                          bat 'dotnet sonarscanner end /d:sonar.login="555fb13f8d7dedfbfcb19fad7d76f38c58f8d4fa"'
 				                        
